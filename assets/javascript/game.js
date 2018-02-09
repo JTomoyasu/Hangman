@@ -90,12 +90,22 @@ document.onkeyup = function (event) {
     if (game.usedL.includes(input)) {
         game.guess--;
         game.updateStats();
-        document.getElementById("message").textContent = "You already tried that! Please choose again";
+        document.getElementById("message").textContent = "You already tried that! Please choose again"; 
+        if (game.guess == 0) {
+            game.loss++;
+            game.reset();
+            document.getElementById("message").textContent = "You lost! Try Again?"
+        }
     }
     else if (input.length > 1 || game.weirdInput(input)) {
         game.guess--;
         game.updateStats();
         document.getElementById("message").textContent = "Please only use letters";
+        if (game.guess == 0) {
+            game.loss++;
+            game.reset();
+            document.getElementById("message").textContent = "You lost! Try Again?"
+        }
     }
     else if (game.isValid(input)) {
         game.success(input);
