@@ -84,7 +84,7 @@ window.onload = function start() {
     game.reset();
 }
 document.onkeyup = function (event) {
-    var input = event.key;
+    var input = event.key.toLowerCase();
     console.log(input);
     console.log(game.theWord);
     if (game.usedL.includes(input)) {
