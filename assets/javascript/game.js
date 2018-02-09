@@ -77,6 +77,26 @@ var game =
                 }
             }
             return true;
+        },
+        dupeInput: function () {
+            this.guess--;
+            this.updateStats();
+            document.getElementById("message").textContent = "You already tried that! Please choose again";
+            if (this.guess == 0) {
+                this.loss++;
+                this.reset();
+                document.getElementById("message").textContent = "You lost! Try Again?"
+            }
+        },
+        badInput: function () {
+            this.guess--;
+            this.updateStats();
+            document.getElementById("message").textContent = "Please only use letters";
+            if (this.guess == 0) {
+                this.loss++;
+                this.reset();
+                document.getElementById("message").textContent = "You lost! Try Again?"
+            }
         }
     };
 
@@ -88,24 +108,10 @@ document.onkeyup = function (event) {
     console.log(input);
     console.log(game.theWord);
     if (game.usedL.includes(input)) {
-        game.guess--;
-        game.updateStats();
-        document.getElementById("message").textContent = "You already tried that! Please choose again"; 
-        if (game.guess == 0) {
-            game.loss++;
-            game.reset();
-            document.getElementById("message").textContent = "You lost! Try Again?"
-        }
+        game.dupeInput();
     }
     else if (input.length > 1 || game.weirdInput(input)) {
-        game.guess--;
-        game.updateStats();
-        document.getElementById("message").textContent = "Please only use letters";
-        if (game.guess == 0) {
-            game.loss++;
-            game.reset();
-            document.getElementById("message").textContent = "You lost! Try Again?"
-        }
+        game.badInput();
     }
     else if (game.isValid(input)) {
         game.success(input);
