@@ -1,7 +1,7 @@
 
 var game =
     {
-        wordLibrary: ["theatre", "mansion", "house","skyscraper","building","shack","hovel"],
+        wordLibrary: ["theatre", "mansion", "house", "skyscraper", "building", "shack", "hovel"],
         theWord: "",
         usedL: [],
         guess: 14,
@@ -51,7 +51,7 @@ var game =
             }
             //this.guess--;
             this.updateStats();
-            document.getElementById("message").textContent ="Yay!";
+            document.getElementById("message").textContent = "Yay!";
             if (this.userWord == this.theWord) {
                 this.win++;
                 this.reset();
@@ -61,27 +61,24 @@ var game =
         failure: function (input) {
             this.guess--;
             this.usedL.push(input);
-            document.getElementById("message").textContent ="Ow!"
+            document.getElementById("message").textContent = "Ow!"
             if (game.guess == 0) {
                 this.loss++;
                 this.reset();
-                document.getElementById("message").textContent ="You lost! Try Again?"
+                document.getElementById("message").textContent = "You lost! Try Again?"
             }
             this.updateStats();
+        },
+        weirdInput: function (input) {
+            var lets = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
+            for (i = 0; i < lets.length; i++) {
+                if (lets[i] == input) {
+                    return false;
+                }
+            }
+            return true;
         }
     };
-function weirdInput(input)
-{
-    var lets=["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"];
-    for(i=0;i<lets.length;i++)
-    {
-        if(lets[i]==input)
-        {
-            return false;
-        }
-    }
-    return true;
-}
 
 window.onload = function start() {
     game.reset();
@@ -95,8 +92,7 @@ document.onkeyup = function (event) {
         game.updateStats();
         document.getElementById("message").textContent = "You already tried that! Please choose again";
     }
-    else if (input.length>1||weirdInput(input))
-    {
+    else if (input.length > 1 || game.weirdInput(input)) {
         game.guess--;
         game.updateStats();
         document.getElementById("message").textContent = "Please only use letters";
